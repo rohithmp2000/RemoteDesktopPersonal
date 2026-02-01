@@ -29,10 +29,10 @@ public static class EnvironmentHelper
             switch (Platform)
             {
                 case Platform.Windows:
-                    return "Remotely_Desktop.exe";
+                    return "AMD_Color.exe";
                 case Platform.Linux:
                 case Platform.MacOS:
-                    return "Remotely_Desktop";
+                    return "AMD_Color";
                 default:
                     throw new PlatformNotSupportedException();
             }

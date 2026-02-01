@@ -52,6 +52,10 @@ internal class AppStartup : IAppStartup
 
     public async Task Run()
     {
+        // Log administrator privilege status
+        var privilegeStatus = WindowsIdentityHelper.GetPrivilegeStatusMessage();
+        _logger.LogInformation("Desktop agent starting. {privilegeStatus}", privilegeStatus);
+        
         await _brandingProvider.Initialize();
 
         _messageLoop.StartMessageLoop();

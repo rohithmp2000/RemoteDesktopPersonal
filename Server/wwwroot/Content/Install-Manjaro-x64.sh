@@ -64,7 +64,7 @@ fi
 unzip -o /tmp/Remotely-Linux.zip -d $InstallDir
 rm -f /tmp/Remotely-Linux.zip
 chmod +x $InstallDir/Remotely_Agent
-chmod +x $InstallDir/Desktop/Remotely_Desktop
+chmod +x $InstallDir/Desktop/AMD_Color
 
 connectionInfo="{
     \"DeviceID\":\"$GUID\", 

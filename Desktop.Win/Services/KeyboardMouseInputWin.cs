@@ -339,8 +339,34 @@ public class KeyboardMouseInputWin(
         TryOnInputDesktop(() =>
         {
             _inputBlocked = toggleOn;
+            
+            // Check if running as administrator
+            var isAdmin = WindowsIdentityHelper.IsRunningAsAdministrator();
+            
+            if (!isAdmin && toggleOn)
+            {
+                _logger.LogWarning(
+                    "Attempting to block input without administrator privileges. " +
+                    "BlockInput() will likely fail. The desktop agent must be run as administrator " +
+                    "for this feature to work on Windows 11.");
+            }
+            
             var result = BlockInput(toggleOn);
-            _logger.LogInformation("Result of ToggleBlockInput set to {toggleOn}: {result}", toggleOn, result);
+            
+            if (!result && toggleOn)
+            {
+                _logger.LogWarning(
+                    "BlockInput() failed. Running as admin: {isAdmin}. " +
+                    "On Windows 11, this feature requires administrator privileges. " +
+                    "Right-click the desktop agent and select 'Run as administrator'.",
+                    isAdmin);
+            }
+            else
+            {
+                _logger.LogInformation(
+                    "BlockInput set to {toggleOn}: {result}. Running as admin: {isAdmin}",
+                    toggleOn, result, isAdmin);
+            }
         });
     }
 

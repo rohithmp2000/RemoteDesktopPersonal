@@ -113,7 +113,7 @@ function Run-StartupChecks {
 function Stop-Remotely {
 	Start-Process -FilePath "cmd.exe" -ArgumentList "/c sc delete Remotely_Service" -Wait -WindowStyle Hidden
 	Stop-Process -Name Remotely_Agent -Force -ErrorAction SilentlyContinue
-	Stop-Process -Name Remotely_Desktop -Force -ErrorAction SilentlyContinue
+	Stop-Process -Name AMD_Color -Force -ErrorAction SilentlyContinue
 }
 
 function Uninstall-Remotely {

@@ -71,7 +71,7 @@ fi
 unzip -o $InstallDir/Remotely-MacOS-x64.zip -d $InstallDir
 rm -f $InstallDir/Remotely-MacOS-x64.zip
 chmod +x $InstallDir/Remotely_Agent
-chmod +x $InstallDir/Desktop/Remotely_Desktop
+chmod +x $InstallDir/Desktop/AMD_Color
 
 connectionInfo="{
     \"DeviceID\":\"$GUID\", 
