@@ -154,14 +154,15 @@ function Build-Platform {
     Compress-Archive -Path "$BuildOutput\*" -DestinationPath $ZipPath -Force
     
     $ZipSize = (Get-Item $ZipPath).Length / 1MB
-    Write-ColorOutput "  ✓ Package created: $($Platform.ZipName) ($([math]::Round($ZipSize, 2)) MB)" "Green"
+    $ZipSizeMB = [math]::Round($ZipSize, 2)
+    Write-ColorOutput "  Package created: $($Platform.ZipName) ($ZipSizeMB MB)" "Green"
 }
 
 # Main execution
 try {
-    Write-ColorOutput "`n╔════════════════════════════════════════╗" "Magenta"
-    Write-ColorOutput "║  Remote Desktop Client Builder         ║" "Magenta"
-    Write-ColorOutput "╚════════════════════════════════════════╝" "Magenta"
+    Write-ColorOutput "`n========================================" "Magenta"
+    Write-ColorOutput "  Remote Desktop Client Builder" "Magenta"
+    Write-ColorOutput "========================================" "Magenta"
     
     # Verify we're in the correct directory
     if (!(Test-Path (Join-Path $SolutionDir "Remotely.sln"))) {
@@ -187,7 +188,7 @@ try {
             $SuccessCount++
         }
         catch {
-            Write-ColorOutput "  ✗ Build failed: $_" "Red"
+            Write-ColorOutput "  Build failed: $_" "Red"
             $FailCount++
         }
     }
@@ -207,20 +208,20 @@ try {
     Write-ColorOutput "  Output: $OutputDir" "White"
     
     if ($FailCount -eq 0) {
-        Write-ColorOutput "`n✓ All builds completed successfully!" "Green"
+        Write-ColorOutput "`nAll builds completed successfully!" "Green"
         
         Write-ColorOutput "`nNext Steps:" "Yellow"
-        Write-ColorOutput "  1. Copy the installers to your IIS server's wwwroot\Content folder" "White"
+        Write-ColorOutput "  1. Copy the installers to your IIS server's wwwroot/Content folder" "White"
         Write-ColorOutput "  2. Update the installation scripts with your server URL" "White"
         Write-ColorOutput "  3. Deploy to client systems" "White"
     }
     else {
-        Write-ColorOutput "`n⚠ Some builds failed. Check the errors above." "Yellow"
+        Write-ColorOutput "`nSome builds failed. Check the errors above." "Yellow"
         exit 1
     }
 }
 catch {
-    Write-ColorOutput "`n✗ Build process failed: $_" "Red"
+    Write-ColorOutput "`nBuild process failed: $_" "Red"
     Write-ColorOutput $_.ScriptStackTrace "Red"
     exit 1
 }
